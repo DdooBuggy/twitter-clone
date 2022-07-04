@@ -10,7 +10,7 @@ const App = () => {
     if (user) {
       setIsLoggedIn(true);
       const uid = user.uid;
-      console.log(uid);
+      console.log(user);
     } else {
       setIsLoggedIn(false);
     }
