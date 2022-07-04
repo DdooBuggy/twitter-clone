@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import EditProfile from "../routes/EditProfile";
 import Auth from "../routes/Auth";
 
-const Router = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Router = ({ isLoggedIn }) => {
   return (
     <Routes>
       {isLoggedIn ? (
