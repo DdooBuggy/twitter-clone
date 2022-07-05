@@ -1,9 +1,20 @@
 import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { dbService } from "../fbase";
 
 const Home = () => {
   const [nweet, setNweet] = useState("");
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    try {
+      await addDoc(collection(dbService, "nweet"), {
+        nweet,
+        createdAt: Date.now(),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setNweet("");
   };
   const onChange = (event) => {
     const {
