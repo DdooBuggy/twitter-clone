@@ -5,12 +5,12 @@ import Profile from "../routes/Profile";
 import EditProfile from "../routes/EditProfile";
 import Auth from "../routes/Auth";
 
-const Router = ({ isLoggedIn }) => {
+const Router = ({ isLoggedIn, userObj }) => {
   return (
     <Routes>
       {isLoggedIn ? (
         <>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home userObj={userObj} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<EditProfile />} />
         </>

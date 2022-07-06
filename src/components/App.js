@@ -7,11 +7,13 @@ import Navigation from "./Navigation";
 const App = () => {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState();
   const auth = getAuth();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
+        setUserObj(user);
       } else {
         setIsLoggedIn(false);
       }
@@ -23,7 +25,7 @@ const App = () => {
       {init ? (
         <>
           {isLoggedIn && <Navigation />}
-          <Router isLoggedIn={isLoggedIn} />
+          <Router isLoggedIn={isLoggedIn} userObj={userObj} />
         </>
       ) : (
         <span>Loading...</span>
