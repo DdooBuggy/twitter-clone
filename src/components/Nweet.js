@@ -1,6 +1,7 @@
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 import React, { useState } from "react";
-import { dbService } from "../fbase";
+import { dbService, storageService } from "../fbase";
 
 const Nweet = ({ nweetObj, isOwner }) => {
   const [isOnEditMode, setIsOnEditMode] = useState(false);
@@ -8,7 +9,15 @@ const Nweet = ({ nweetObj, isOwner }) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("Are you sure to delete this nweet?");
     if (ok) {
-      await deleteDoc(doc(dbService, "nweet", `${nweetObj.id}`));
+      try {
+        await deleteDoc(doc(dbService, "nweet", `${nweetObj.id}`));
+        if (nweetObj.attachmentUrl) {
+          await deleteObject(ref(storageService, nweetObj.attachmentUrl));
+        }
+      } catch (e) {
+        console.log(e);
+        window.alert("Deleting the nweet failed");
+      }
     }
   };
   const toggleEditMode = () => {

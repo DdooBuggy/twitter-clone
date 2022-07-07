@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState(""); // nweet form value
   const [nweets, setNweets] = useState([]); // nweets in database
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
   useEffect(() => {
     onSnapshot(collection(dbService, "nweet"), (snapshot) => {
       const nweetArray = snapshot.docs.map((doc) => ({
