@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../routes/Home";
 import Profile from "../routes/Profile";
-import EditProfile from "../routes/EditProfile";
 import Auth from "../routes/Auth";
 
 const Router = ({ isLoggedIn, userObj }) => {
@@ -11,8 +10,7 @@ const Router = ({ isLoggedIn, userObj }) => {
       {isLoggedIn ? (
         <>
           <Route path="/" element={<Home userObj={userObj} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/profile" element={<Profile userObj={userObj} />} />
         </>
       ) : (
         <Route path="/" element={<Auth />} />
