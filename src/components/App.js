@@ -23,7 +23,7 @@ const App = () => {
     <>
       {init ? (
         <>
-          {isLoggedIn && <Navigation />}
+          {isLoggedIn && <Navigation userObj={userObj} />}
           <Router isLoggedIn={isLoggedIn} userObj={userObj} />
         </>
       ) : (
