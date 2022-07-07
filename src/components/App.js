@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { fbase } from "../fbase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Router from "./Router";
 import Navigation from "./Navigation";
