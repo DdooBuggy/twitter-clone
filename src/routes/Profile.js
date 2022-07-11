@@ -4,7 +4,7 @@ import { query, where, orderBy, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ userObj, refreshUser }) => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -39,6 +39,7 @@ const Profile = ({ userObj }) => {
         await updateProfile(auth.currentUser, {
           displayName: newDisplayName,
         });
+        refreshUser();
       } catch (e) {
         console.log(e);
       }
