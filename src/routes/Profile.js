@@ -8,7 +8,7 @@ const Profile = ({ userObj, refreshUser }) => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
-  const onLogoutClick = async () => {
+  const onLogOutClick = async () => {
     try {
       await signOut(auth);
       navigate("/");
@@ -46,18 +46,29 @@ const Profile = ({ userObj, refreshUser }) => {
     }
   };
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="container">
+      <form className="profileForm" onSubmit={onSubmit}>
         <input
           onChange={onChange}
           type="text"
           placeholder="Profile name"
           value={newDisplayName}
+          autoFocus
+          className="formInput"
         />
-        <input type="submit" value="Update Profile" />
+        <input
+          type="submit"
+          value="Update Profile"
+          className="formBtn"
+          style={{
+            marginTop: 10,
+          }}
+        />
       </form>
-      <button onClick={onLogoutClick}>Log out</button>
-    </>
+      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log Out
+      </span>
+    </div>
   );
 };
 
