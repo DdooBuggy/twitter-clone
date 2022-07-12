@@ -73,8 +73,8 @@ form {
 /* Profile Page */
 
 .profileForm {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.9);
-  padding-bottom: 30px;
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.9); */
+  padding-bottom: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -84,6 +84,17 @@ form {
   margin-top: 50px;
 }
 
+.myNweets {
+  margin-top: 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+  padding-top: 50px;
+}
+
+.myNweets-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
 /* Nwitter Factory */
 
 .factoryForm {

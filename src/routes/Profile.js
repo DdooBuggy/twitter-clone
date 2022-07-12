@@ -3,11 +3,13 @@ import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { query, where, orderBy, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
+import Nweet from "../components/Nweet";
 
 const Profile = ({ userObj, refreshUser }) => {
   const auth = getAuth();
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [myNweets, setMyNweets] = useState([]);
   const onLogOutClick = async () => {
     try {
       await signOut(auth);
@@ -16,19 +18,26 @@ const Profile = ({ userObj, refreshUser }) => {
       console.log(error);
     }
   };
-  // const getMyNweets = async () => {
-  //   const nweetRef = collection(dbService, "nweet");
-  //   const nweetsQuery = await query(
-  //     nweetRef,
-  //     where("creatorId", "==", userObj.uid),
-  //     orderBy("createdAt", "desc")
-  //   );
-  //   const querySnapshot = await getDocs(nweetsQuery);
-  //   querySnapshot.forEach((doc) => console.log(doc.id, doc.data()));
-  // };
-  // useEffect(() => {
-  //   getMyNweets();
-  // }, []);
+  const getMyNweets = async () => {
+    const nweetRef = collection(dbService, "nweet");
+    const nweetsQuery = await query(
+      nweetRef,
+      where("creatorId", "==", userObj.uid),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(nweetsQuery);
+    let snapshotArray = [];
+    querySnapshot.forEach((doc) =>
+      snapshotArray.push({
+        id: doc.id,
+        data: doc.data(),
+      })
+    );
+    setMyNweets(snapshotArray);
+  };
+  useEffect(() => {
+    getMyNweets();
+  }, []);
   const onChange = (event) => {
     setNewDisplayName(event.target.value);
   };
@@ -68,6 +77,16 @@ const Profile = ({ userObj, refreshUser }) => {
       <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
         Log Out
       </span>
+      <div className="myNweets">
+        <h4 className="myNweets-title">My Nweets</h4>
+        {myNweets.map((nweet) => (
+          <Nweet
+            key={nweet.id}
+            nweetObj={nweet.data}
+            isOwner={nweet.data.creatorId === userObj.uid}
+          />
+        ))}
+      </div>
     </div>
   );
 };
